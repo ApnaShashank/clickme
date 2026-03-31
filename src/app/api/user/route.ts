@@ -29,6 +29,7 @@ export async function GET() {
       avatarUrl: user.avatarUrl,
       themeColor: user.themeColor,
       customLink: user.customLink,
+      loginCount: user.loginCount || 1,
       rank,
     });
   } catch (error) {

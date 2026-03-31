@@ -97,6 +97,7 @@ export default function CurvedFooter({
       {/* Navigation Arrows - Original Style */}
       {currentPage === "profile" && (
         <button
+          id="tour-nav-leaderboard"
           onClick={onGoLeft}
           className="absolute bottom-5 left-8 pointer-events-auto z-20 active:scale-90 transition-all duration-200"
           aria-label="Back to leaderboard"
@@ -114,6 +115,7 @@ export default function CurvedFooter({
 
       {currentPage === "leaderboard" && (
         <button
+          id="tour-nav-profile"
           onClick={onGoRight}
           className="absolute bottom-5 right-8 pointer-events-auto z-20 active:scale-90 transition-all duration-200"
           aria-label="Go to profile"
@@ -133,6 +135,7 @@ export default function CurvedFooter({
       <div className="absolute bottom-[60px] left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-auto">
         {/* Click Me Button with Hold interaction */}
         <button 
+          id="tour-click-button"
           onMouseDown={startHold}
           onMouseUp={endHold}
           onMouseLeave={endHold}

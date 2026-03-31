@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import CurvedFooter from "@/components/CurvedFooter";
 import ThemedLoading from "@/components/ThemedLoading";
+import TourGuide from "@/components/TourGuide";
 
 const AVATARS = [
   "https://ik.imagekit.io/DEMOPROJECT/clickme/hoddie__boy.png?updatedAt=1774962424608",
@@ -49,6 +50,7 @@ interface UserProfile {
   themeColor: string;
   customLink: string;
   rank: number;
+  loginCount: number;
 }
 
 function formatClicks(n: number): string {
@@ -108,7 +110,7 @@ function LeaderboardPage({
       <header className="pt-8 pb-10 text-center relative z-20 overflow-hidden">
         {/* Hidden H1 for SEO/Accessibility 100 Score */}
         <h1 className="sr-only">ClickMe Arena - Multiplayer Clicker Leaderboard</h1>
-        <h2 className="text-white font-headline font-black text-4xl tracking-widest uppercase mt-2">
+        <h2 id="tour-leaderboard-title" className="text-white font-headline font-black text-4xl tracking-widest uppercase mt-2">
           Leaderboard
         </h2>
         <div className="flex items-center justify-center gap-2 mt-2 opacity-80" aria-hidden="true">
@@ -161,6 +163,7 @@ function LeaderboardPage({
               {/* Rank 1 */}
               {top3[0] && (
                 <div 
+                  id="tour-rank-1"
                   className="flex-1 flex flex-col items-center -mt-8 z-10 scale-110 group cursor-pointer"
                   onClick={() => handleInteraction(top3[0], "single")}
                   onDoubleClick={() => handleInteraction(top3[0], "double")}
@@ -244,12 +247,13 @@ function LeaderboardPage({
             <div className="h-[1px] flex-1 bg-white"></div>
           </div>
           <div className="space-y-2">
-            {rest.map((user) => {
+            {rest.map((user, index) => {
               const isMe = user.id === currentUserId;
               const userThemeColor = user.themeColor || "#FFAA00";
               return (
                 <div
                   key={user.id}
+                  id={index === 0 ? "tour-player-card" : undefined}
                   onClick={() => handleInteraction(user, "single")}
                   onDoubleClick={() => handleInteraction(user, "double")}
                   className={`flex items-center gap-4 p-3 transition-all hover:bg-white/5 cursor-pointer group rounded-sm border-l-4 shadow-lg ${
@@ -405,7 +409,7 @@ function ProfilePage({
 
 
       {/* Avatar Section */}
-      <div className="relative flex items-center justify-center gap-4 mb-6">
+      <div id="tour-profile-avatar" className="relative flex items-center justify-center gap-4 mb-6">
         {isEditing && (
           <button onClick={prevAvatar} className="w-10 h-10 rounded-full bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white/20 transition-all active:scale-90" aria-label="Previous Avatar">
             <span className="material-symbols-outlined text-white text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>chevron_left</span>
@@ -474,7 +478,7 @@ function ProfilePage({
       </div>
 
       {/* Stats - Grouped tightly above the footer area */}
-      <div className="w-full max-w-xs grid grid-cols-3 gap-2 mt-0 mb-8 relative z-20">
+      <div id="tour-profile-stats" className="w-full max-w-xs grid grid-cols-3 gap-2 mt-0 mb-8 relative z-20">
         <div className="bg-white/5 border border-white/10 p-2 text-center rounded-sm">
           <span className="block text-sm font-headline font-black tracking-tight text-white">{formatClicks(profile.clickCount)}</span>
           <span className="text-[8px] font-black text-white/20 uppercase tracking-[0.2em] mt-0.5 block">Clicks</span>
@@ -493,7 +497,7 @@ function ProfilePage({
 
       {/* Custom Link Display / Editor (shown after double-clicking the avatar) */}
       {isEditing && showLinkInput ? (
-        <div className="w-full max-w-sm mb-10 animate-in fade-in slide-in-from-bottom-2 duration-300">
+        <div id="tour-profile-link" className="w-full max-w-sm mb-10 animate-in fade-in slide-in-from-bottom-2 duration-300">
           <label htmlFor="custom-link-edit" className="block text-white/30 text-[9px] font-black uppercase tracking-[0.3em] mb-2 px-1">Global Target Link</label>
           <div className="relative group">
             <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-[#0066FF] transition-colors" aria-hidden="true">
@@ -540,6 +544,7 @@ export default function Home() {
   const [leaderboard, setLeaderboard] = useState<LeaderboardUser[]>([]);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [clickCount, setClickCount] = useState(0);
+  const [showTour, setShowTour] = useState(false);
 
   const fetchLeaderboard = useCallback(async () => {
     try {
@@ -560,6 +565,9 @@ export default function Home() {
         const data = await res.json();
         setProfile(data);
         setClickCount(data.clickCount);
+        if (data.loginCount === 1) {
+          setShowTour(true);
+        }
       }
     } catch (err) {
       console.error("Failed to fetch profile:", err);
@@ -760,6 +768,18 @@ export default function Home() {
         clickCount={clickCount}
         themeColor={themeColor}
       />
+
+      {showTour && (
+        <TourGuide 
+          onComplete={() => setShowTour(false)} 
+          themeColor={themeColor}
+          currentPage={currentPage}
+          onNavigate={(page) => {
+            if (page === "leaderboard") goToLeaderboard();
+            else goToProfile();
+          }}
+        />
+      )}
     </div>
   );
 }
