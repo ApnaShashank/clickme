@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   keywords: ["clicker game", "viral clicker", "social ads", "multiplayer leaderboard", "product promotion", "instagram arena", "click me to viral"],
   authors: [{ name: "ClickMe Arena" }],
   creator: "ClickMe Team",
+  icons: {
+    icon: "https://ik.imagekit.io/DEMOPROJECT/Click%20Me%20Button%20Icon.png",
+  },
   alternates: {
     canonical: "https://clickmeee.vercel.app",
   },
@@ -31,10 +34,10 @@ export const metadata: Metadata = {
     siteName: "Click Me",
     images: [
       {
-        url: "https://ik.imagekit.io/DEMOPROJECT/clickme/og-image.png?updatedAt=1774962271934",
+        url: "https://ik.imagekit.io/DEMOPROJECT/Click%20Me%20Button%20Icon.png",
         width: 1200,
         height: 630,
-        alt: "Click Me Viral Arena",
+        alt: "Click Me Official Button Icon",
       },
     ],
     locale: "en_US",
@@ -44,7 +47,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Click Me | The Viral Ad Arena 🚀",
     description: "Rank top. Connect with players. Advertise your products globally.",
-    images: ["https://ik.imagekit.io/DEMOPROJECT/clickme/og-image.png?updatedAt=1774962271934"],
+    images: ["https://ik.imagekit.io/DEMOPROJECT/Click%20Me%20Button%20Icon.png"],
   },
   robots: {
     index: true,
