@@ -97,37 +97,47 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] flex items-center justify-center px-6 py-12 font-body relative overflow-hidden">
-      <div className="w-full max-w-md relative z-10">
-        {/* Simple Static Logo */}
+    <div className="min-h-screen bg-silver-matte flex items-center justify-center px-6 py-12 font-body relative overflow-hidden">
+      {/* Floating Background Icons */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
+        <span className="material-symbols-outlined absolute top-[5%] right-[20%] text-6xl text-white/5 animate-float opacity-20">person_add</span>
+        <span className="material-symbols-outlined absolute top-[25%] left-[10%] text-4xl text-white/5 animate-float-delayed opacity-10">fingerprint</span>
+        <span className="material-symbols-outlined absolute bottom-[10%] right-[15%] text-5xl text-white/5 animate-float-slow opacity-15">verified</span>
+        <span className="material-symbols-outlined absolute bottom-[30%] left-[5%] text-7xl text-white/5 animate-float opacity-10">vpn_key</span>
+        <span className="material-symbols-outlined absolute top-[45%] right-[5%] text-3xl text-white/5 animate-float-delayed opacity-5">shield</span>
+      </div>
+
+      <div className="w-full max-w-md relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        {/* Branding */}
         <div className="text-center mb-10">
-          <h1 className="text-5xl font-headline font-black text-white tracking-widest uppercase">
-            Click<span className="text-primary">Me</span>
+          <h1 className="text-6xl font-headline font-black tracking-tighter uppercase mb-1">
+            <span className="silver-text-gradient">CLICK</span>
+            <span className="text-white opacity-40">ME</span>
           </h1>
-          <div className="flex items-center justify-center gap-2 mt-3 mb-1 text-white/20">
-            <div className="h-px flex-1 bg-white/10"></div>
-            <span className="text-[9px] font-black uppercase tracking-[0.3em]">INITIALIZE_IDENTITY</span>
-            <div className="h-px flex-1 bg-white/10"></div>
+          <div className="flex items-center justify-center gap-3 text-white/10">
+            <div className="h-px w-8 bg-white/5"></div>
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] whitespace-nowrap">INITIALIZE_IDENTITY_v3</span>
+            <div className="h-px w-8 bg-white/5"></div>
           </div>
         </div>
 
-        {/* Matte Card */}
-        <div className="bg-[#111] border border-white/5 p-8 shadow-2xl relative overflow-hidden">
+        {/* The Silver Vault Card */}
+        <div className="bg-[#0f0f0f]/80 backdrop-blur-xl silver-border p-8 relative overflow-hidden">
           <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
-              <div className="bg-red-600 border border-red-700 text-white px-4 py-3 text-[10px] font-black uppercase tracking-widest text-center">
+              <div className="bg-red-950/20 border border-red-500/30 text-red-400 px-4 py-3 text-[10px] font-black uppercase tracking-widest text-center animate-in shake-in duration-300">
                 {error}
               </div>
             )}
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label htmlFor="signup-name" className="text-white/40 text-[9px] font-black uppercase tracking-[0.2em] px-1 group-focus-within:text-[#0066FF] transition-colors">
-                  Name
+                <label htmlFor="signup-name" className="text-white/30 text-[9px] font-black uppercase tracking-[0.2em] px-1">
+                  Alias
                 </label>
                 <div className="relative group">
-                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-[#0066FF] transition-colors" aria-hidden="true">
-                    <span className="material-symbols-outlined text-sm" aria-label="Nickname Icon">person</span>
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/10 group-focus-within:text-white transition-colors" aria-hidden="true">
+                    <span className="material-symbols-outlined text-sm">person</span>
                   </div>
                   <input
                     id="signup-name"
@@ -135,18 +145,18 @@ export default function SignupPage() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className="w-full bg-[#0a0a0a] border border-white/5 pl-11 pr-4 py-3.5 text-white font-bold outline-none focus:border-[#0066FF] transition-all placeholder:text-white/5 text-sm uppercase"
-                    placeholder="STRYKER"
+                    className="w-full bg-black/40 border border-white/5 pl-11 pr-4 py-3.5 text-white font-bold outline-none focus:border-white/20 transition-all placeholder:text-white/5 text-sm uppercase"
+                    placeholder="PLAYER_ONE"
                   />
                 </div>
               </div>
               <div className="space-y-2">
-                <label htmlFor="signup-insta" className="text-white/40 text-[9px] font-black uppercase tracking-[0.2em] px-1 group-focus-within:text-[#0066FF] transition-colors">
-                  Insta
+                <label htmlFor="signup-insta" className="text-white/30 text-[9px] font-black uppercase tracking-[0.2em] px-1">
+                  Social Handle
                 </label>
                 <div className="relative group">
-                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-[#0066FF] transition-colors" aria-hidden="true">
-                    <span className="material-symbols-outlined text-sm" aria-label="Social Icon">social_distance</span>
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/10 group-focus-within:text-white transition-colors" aria-hidden="true">
+                    <span className="material-symbols-outlined text-sm">alternate_email</span>
                   </div>
                   <input
                     id="signup-insta"
@@ -154,20 +164,20 @@ export default function SignupPage() {
                     value={instagramUsername}
                     onChange={(e) => setInstagramUsername(e.target.value)}
                     required
-                    className="w-full bg-[#0a0a0a] border border-white/5 pl-11 pr-4 py-3.5 text-white font-bold outline-none focus:border-[#0066FF] transition-all placeholder:text-white/5 text-sm"
-                    placeholder="@handle"
+                    className="w-full bg-black/40 border border-white/5 pl-11 pr-4 py-3.5 text-white font-bold outline-none focus:border-white/20 transition-all placeholder:text-white/5 text-sm"
+                    placeholder="@ID"
                   />
                 </div>
               </div>
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="signup-email" className="text-white/40 text-[9px] font-black uppercase tracking-[0.2em] px-1 group-focus-within:text-[#0066FF] transition-colors">
-                Registry Email
+              <label htmlFor="signup-email" className="text-white/30 text-[9px] font-black uppercase tracking-[0.2em] px-1">
+                Security Email
               </label>
               <div className="relative group">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-[#0066FF] transition-colors" aria-hidden="true">
-                  <span className="material-symbols-outlined text-sm" aria-label="Email Icon">alternate_email</span>
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/10 group-focus-within:text-white transition-colors" aria-hidden="true">
+                  <span className="material-symbols-outlined text-sm">mail</span>
                 </div>
                 <input
                   id="signup-email"
@@ -175,19 +185,19 @@ export default function SignupPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full bg-[#0a0a0a] border border-white/5 pl-11 pr-4 py-3.5 text-white font-bold outline-none focus:border-[#0066FF] transition-all placeholder:text-white/5 text-sm"
-                  placeholder="ID_REGISTRY@EMAIL.COM"
+                  className="w-full bg-black/40 border border-white/5 pl-11 pr-4 py-3.5 text-white font-bold outline-none focus:border-white/20 transition-all placeholder:text-white/5 text-sm"
+                  placeholder="ID@VAULT.SYS"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="signup-password" className="text-white/40 text-[9px] font-black uppercase tracking-[0.2em] px-1 group-focus-within:text-[#0066FF] transition-colors">
+              <label htmlFor="signup-password" className="text-white/30 text-[9px] font-black uppercase tracking-[0.2em] px-1">
                 Security Key
               </label>
               <div className="relative group">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-[#0066FF] transition-colors" aria-hidden="true">
-                  <span className="material-symbols-outlined text-sm" aria-label="Password Icon">lock</span>
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/10 group-focus-within:text-white transition-colors" aria-hidden="true">
+                  <span className="material-symbols-outlined text-sm">lock</span>
                 </div>
                 <input
                   id="signup-password"
@@ -197,13 +207,13 @@ export default function SignupPage() {
                   required
                   autoComplete="new-password"
                   minLength={8}
-                  className="w-full bg-[#0a0a0a] border border-white/5 pl-11 pr-4 py-3.5 text-white font-bold outline-none focus:border-[#0066FF] transition-all placeholder:text-white/5 text-sm"
+                  className="w-full bg-black/40 border border-white/5 pl-11 pr-4 py-3.5 text-white font-bold outline-none focus:border-white/20 transition-all placeholder:text-white/5 text-sm"
                   placeholder="••••••••"
                 />
               </div>
-              <div className="flex gap-2 flex-wrap mt-2 px-1" aria-label="Security Requirements">
-                {['8+ Chars', 'Uppercase', 'Number'].map(tag => (
-                  <span key={tag} className="text-[7px] font-black uppercase tracking-widest px-2 py-1 bg-white/5 text-white/40 rounded-sm">
+              <div className="flex gap-2 flex-wrap mt-2 px-1 opacity-40">
+                {['8+ Chars', 'Uppercase', 'Digital'].map(tag => (
+                  <span key={tag} className="text-[7px] font-black uppercase tracking-widest px-2 py-1 bg-white/5 text-white/60 silver-border rounded-sm">
                     {tag}
                   </span>
                 ))}
@@ -213,19 +223,21 @@ export default function SignupPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#0066FF] text-white font-headline font-black text-lg uppercase tracking-[0.2em] py-4.5 hover:bg-[#0052cc] active:scale-[0.98] transition-all disabled:opacity-50 disabled:grayscale mt-2"
+              className="w-full silver-button font-headline font-black text-lg uppercase tracking-[0.2em] py-5 active:scale-[0.98] disabled:opacity-50 disabled:grayscale mt-2 group"
             >
-              {loading ? "INITIALIZING..." : "JOIN_ARENA"}
+              <span className="group-hover:tracking-[0.3em] transition-all duration-300">
+                {loading ? "INITIALIZING..." : "JOIN_ARENA"}
+              </span>
             </button>
           </form>
         </div>
 
-        {/* Muted Footer */}
+        {/* Secondary Actions */}
         <div className="text-center mt-10">
           <p className="text-white/20 text-[10px] font-black uppercase tracking-[0.2em]">
             Identity already mapped?{" "}
-            <Link href="/login" className="text-white hover:text-[#0066FF] transition-colors border-b border-white/10 pb-0.5 ml-1">
-              LOGIN_MANUALLY
+            <Link href="/login" className="text-white hover:silver-text-gradient transition-all border-b border-white/10 pb-0.5 ml-1">
+              LOGIN_VAULT
             </Link>
           </p>
         </div>

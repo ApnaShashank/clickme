@@ -18,7 +18,6 @@ const AVATARS = [
   "https://ik.imagekit.io/DEMOPROJECT/clickme/lazy_boy.png?updatedAt=1774962368950",
   "https://ik.imagekit.io/DEMOPROJECT/clickme/genius_boy.png?updatedAt=1774962271934",
   "https://ik.imagekit.io/DEMOPROJECT/clickme/cool_boy.png?updatedAt=1774962271299",
-  "https://ik.imagekit.io/DEMOPROJECT/clickme/smart_boy.png?updatedAt=1774962269541",
   "https://ik.imagekit.io/DEMOPROJECT/clickme/rich_boy.png?updatedAt=1774962269163",
   "https://ik.imagekit.io/DEMOPROJECT/clickme/sweet_boy.png?updatedAt=1774962257817",
   "https://ik.imagekit.io/DEMOPROJECT/clickme/hoddie_boy.png?updatedAt=1774962235923",
