@@ -148,39 +148,48 @@ body {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* High-End Orbital Animations */
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+/* Solid Matte Mechanical Animations */
+@keyframes step-spin {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(90deg); }
+  50% { transform: rotate(180deg); }
+  75% { transform: rotate(270deg); }
+  100% { transform: rotate(360deg); }
 }
 
-@keyframes spin-reverse-slow {
-  from { transform: rotate(360deg); }
-  to { transform: rotate(0deg); }
+@keyframes shutter-expand {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
 }
 
-@keyframes pulse-silver {
-  0%, 100% {
-    opacity: 0.3;
-    transform: scale(1);
-    filter: blur(8px);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.1);
-    filter: blur(12px);
-  }
+@keyframes line-draw {
+  0% { width: 0; opacity: 0; }
+  50% { width: 100%; opacity: 1; }
+  100% { width: 0; opacity: 0; }
 }
 
-.animate-spin-slow {
-  animation: spin-slow 8s linear infinite;
+.animate-step-spin {
+  animation: step-spin 2s steps(1) infinite;
 }
 
-.animate-spin-reverse-slow {
-  animation: spin-reverse-slow 12s linear infinite;
+.animate-shutter {
+  animation: shutter-expand 1.5s ease-in-out infinite;
 }
 
-.animate-pulse-silver {
-  animation: pulse-silver 3s ease-in-out infinite;
+.animate-line-draw {
+  animation: line-draw 3s linear infinite;
 }
+
+.bg-matte-black {
+  background-color: #080808;
+}
+
+.border-matte-silver {
+  border-color: #333333;
+}
+
+.text-matte-silver {
+  color: #888888;
+}
+
 

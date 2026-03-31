@@ -5,6 +5,7 @@ import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import CurvedFooter from "@/components/CurvedFooter";
+import ThemedLoading from "@/components/ThemedLoading";
 
 const AVATARS = [
   "https://ik.imagekit.io/DEMOPROJECT/clickme/hoddie__boy.png?updatedAt=1774962424608",
@@ -713,16 +714,7 @@ export default function Home() {
   };
 
   if (status === "loading" || !profile) {
-    return (
-      <div className="bg-[#0d0d0f] text-white min-h-screen flex items-center justify-center font-body">
-        <div className="text-center">
-          <h1 className="text-3xl font-headline font-black tracking-widest uppercase mb-4">
-            Click<span style={{ color: "#0066FF" }}>Me</span>
-          </h1>
-          <div className="w-8 h-8 border-2 border-white/20 border-t-white rounded-full animate-spin mx-auto"></div>
-        </div>
-      </div>
-    );
+    return <ThemedLoading status="SYNCING_IDENTITY" />;
   }
 
   const themeColor = profile.themeColor || "#FFAA00";
