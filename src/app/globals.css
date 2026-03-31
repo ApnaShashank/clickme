@@ -148,9 +148,39 @@ body {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.silver-button:hover {
-  background: #ffffff;
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
-  transform: translateY(-1px);
+/* High-End Orbital Animations */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse-slow {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes pulse-silver {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+    filter: blur(8px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+    filter: blur(12px);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.animate-spin-reverse-slow {
+  animation: spin-reverse-slow 12s linear infinite;
+}
+
+.animate-pulse-silver {
+  animation: pulse-silver 3s ease-in-out infinite;
 }
 

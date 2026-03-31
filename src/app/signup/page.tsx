@@ -4,6 +4,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import ThemedLoading from "@/components/ThemedLoading";
 
 const AVATARS = [
   "https://ik.imagekit.io/DEMOPROJECT/clickme/hoddie__boy.png?updatedAt=1774962424608",
@@ -123,6 +124,7 @@ export default function SignupPage() {
 
         {/* The Silver Vault Card */}
         <div className="bg-[#0f0f0f]/80 backdrop-blur-xl silver-border p-8 relative overflow-hidden">
+          {loading && <ThemedLoading status="MAPPING_IDENTITY..." fullScreen={false} />}
           <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
               <div className="bg-red-950/20 border border-red-500/30 text-red-400 px-4 py-3 text-[10px] font-black uppercase tracking-widest text-center animate-in shake-in duration-300">
@@ -226,7 +228,7 @@ export default function SignupPage() {
               className="w-full silver-button font-headline font-black text-lg uppercase tracking-[0.2em] py-5 active:scale-[0.98] disabled:opacity-50 disabled:grayscale mt-2 group"
             >
               <span className="group-hover:tracking-[0.3em] transition-all duration-300">
-                {loading ? "INITIALIZING..." : "JOIN_ARENA"}
+                JOIN_ARENA
               </span>
             </button>
           </form>
