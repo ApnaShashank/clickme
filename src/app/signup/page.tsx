@@ -148,6 +148,7 @@ export default function SignupPage() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
+                    suppressHydrationWarning={true}
                     className="w-full bg-black/40 border border-white/5 pl-11 pr-4 py-3.5 text-white font-bold outline-none focus:border-white/20 transition-all placeholder:text-white/5 text-sm uppercase"
                     placeholder="PLAYER_ONE"
                   />
@@ -167,6 +168,7 @@ export default function SignupPage() {
                     value={instagramUsername}
                     onChange={(e) => setInstagramUsername(e.target.value)}
                     required
+                    suppressHydrationWarning={true}
                     className="w-full bg-black/40 border border-white/5 pl-11 pr-4 py-3.5 text-white font-bold outline-none focus:border-white/20 transition-all placeholder:text-white/5 text-sm"
                     placeholder="@ID"
                   />
@@ -188,6 +190,7 @@ export default function SignupPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  suppressHydrationWarning={true}
                   className="w-full bg-black/40 border border-white/5 pl-11 pr-4 py-3.5 text-white font-bold outline-none focus:border-white/20 transition-all placeholder:text-white/5 text-sm"
                   placeholder="ID@VAULT.SYS"
                 />
@@ -210,6 +213,7 @@ export default function SignupPage() {
                   required
                   autoComplete="new-password"
                   minLength={8}
+                  suppressHydrationWarning={true}
                   className="w-full bg-black/40 border border-white/5 pl-11 pr-4 py-3.5 text-white font-bold outline-none focus:border-white/20 transition-all placeholder:text-white/5 text-sm"
                   placeholder="••••••••"
                 />

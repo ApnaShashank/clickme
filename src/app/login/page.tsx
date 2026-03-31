@@ -85,6 +85,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  suppressHydrationWarning={true}
                   className="w-full bg-black/40 border border-white/5 pl-11 pr-4 py-4 text-white font-bold outline-none focus:border-white/20 transition-all placeholder:text-white/5 text-sm"
                   placeholder="USER@VAULT.SYS"
                 />
@@ -108,6 +109,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  suppressHydrationWarning={true}
                   className="w-full bg-black/40 border border-white/5 pl-11 pr-4 py-4 text-white font-bold outline-none focus:border-white/20 transition-all placeholder:text-white/5 text-sm"
                   placeholder="••••••••"
                 />
