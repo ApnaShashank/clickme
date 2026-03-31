@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import CurvedFooter from "@/components/CurvedFooter";
 import ThemedLoading from "@/components/ThemedLoading";
-import TourGuide from "@/components/TourGuide";
 
 const AVATARS = [
   "https://ik.imagekit.io/DEMOPROJECT/clickme/hoddie__boy.png?updatedAt=1774962424608",
@@ -22,7 +21,6 @@ const AVATARS = [
   "https://ik.imagekit.io/DEMOPROJECT/clickme/cool_boy.png?updatedAt=1774962271299",
   "https://ik.imagekit.io/DEMOPROJECT/clickme/rich_boy.png?updatedAt=1774962269163",
   "https://ik.imagekit.io/DEMOPROJECT/clickme/sweet_boy.png?updatedAt=1774962257817",
-  "https://ik.imagekit.io/DEMOPROJECT/clickme/hoddie_boy.png?updatedAt=1774962235923",
   "https://ik.imagekit.io/DEMOPROJECT/clickme/tech_boy.png?updatedAt=1774962222676",
   "https://ik.imagekit.io/DEMOPROJECT/clickme/candey_girl.png?updatedAt=1774962220202",
   "https://ik.imagekit.io/DEMOPROJECT/clickme/leader_boy.png?updatedAt=1774962214530",
@@ -325,6 +323,7 @@ function ProfilePage({
   onProfileUpdate: (updates: Partial<UserProfile>) => void;
   themeColor: string;
 }) {
+  const [showHelp, setShowHelp] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editName, setEditName] = useState(profile.name);
   const [avatarIndex, setAvatarIndex] = useState(() => {
@@ -375,7 +374,18 @@ function ProfilePage({
   };
 
   return (
-    <div className="flex flex-col items-center pt-8 pb-96 px-5 min-h-screen">
+    <div className="flex flex-col items-center pt-8 pb-96 px-5 min-h-screen relative">
+      {/* Help Button */}
+      <button 
+        onClick={() => setShowHelp(true)}
+        className="fixed bottom-[140px] right-6 z-150 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-all active:scale-90 shadow-2xl"
+        style={{ borderColor: `${themeColor}20` }}
+      >
+        <span className="material-symbols-outlined text-white/40 text-lg">help</span>
+      </button>
+
+      {showHelp && <HelpOverlay onClose={() => setShowHelp(false)} themeColor={themeColor} />}
+
       {/* Top Header: Edit [Edit Icon] [PROFILE] [Logout Icon] Logout */}
       <header className="w-full flex items-center justify-between mb-12 relative">
         <button
@@ -532,6 +542,51 @@ function ProfilePage({
   );
 }
 
+
+function HelpOverlay({ onClose, themeColor }: { onClose: () => void, themeColor: string }) {
+  const manual = [
+    { title: "THE PULSE", icon: "touch_app", text: "Tap the center button to increase your clicks. HOLD it for 3 seconds to reveal your scores." },
+    { title: "AD LAUNCH", icon: "bolt", text: "Double-click any player on the leaderboard to launch their Viral Advertisement link." },
+    { title: "IDENTITY", icon: "fingerprint", text: "Customize your name and avatar in the vault. Your 'Global Target Link' is what others see when they double-click you." },
+    { title: "RANK TIERS", icon: "military_tech", text: "Progression is tier-based: Daone (Under 10k), Datwo (20k), up to Dahund (100k+)." },
+  ];
+
+  return (
+    <div className="fixed inset-0 z-200 flex items-center justify-center p-6 bg-black/90 backdrop-blur-xl animate-in fade-in duration-300">
+      <div className="w-full max-w-sm bg-[#080808] border border-white/10 p-8 relative overflow-hidden">
+        {/* Decor */}
+        <div className="absolute top-0 left-0 w-full h-1" style={{ backgroundColor: themeColor }} />
+        
+        <div className="flex justify-between items-center mb-8">
+           <h2 className="text-sm font-headline font-black uppercase tracking-[0.3em] text-white">System_Manual</h2>
+           <button onClick={onClose} className="text-white/40 hover:text-white transition-colors">
+             <span className="material-symbols-outlined">close</span>
+           </button>
+        </div>
+
+        <div className="space-y-6">
+          {manual.map((item, i) => (
+            <div key={i} className="flex gap-4">
+              <span className="material-symbols-outlined text-xl" style={{ color: themeColor }}>{item.icon}</span>
+              <div>
+                <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-white/80 mb-1">{item.title}</h3>
+                <p className="text-[9px] font-bold text-white/30 uppercase leading-relaxed tracking-wider">{item.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <button 
+          onClick={onClose}
+          className="w-full bg-white text-black font-headline font-black text-[10px] uppercase tracking-[0.3em] py-4 mt-10 active:scale-95 transition-all"
+        >
+          ACKNOWLEDGE_SYSTEM
+        </button>
+      </div>
+    </div>
+  );
+}
+
 // ──────────────────────────────────────
 // HOME PAGE (MAIN CONTROLLER)
 // ──────────────────────────────────────
@@ -544,7 +599,6 @@ export default function Home() {
   const [leaderboard, setLeaderboard] = useState<LeaderboardUser[]>([]);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [clickCount, setClickCount] = useState(0);
-  const [showTour, setShowTour] = useState(false);
 
   const fetchLeaderboard = useCallback(async () => {
     try {
@@ -565,9 +619,6 @@ export default function Home() {
         const data = await res.json();
         setProfile(data);
         setClickCount(data.clickCount);
-        if (data.loginCount === 1) {
-          setShowTour(true);
-        }
       }
     } catch (err) {
       console.error("Failed to fetch profile:", err);
@@ -768,18 +819,6 @@ export default function Home() {
         clickCount={clickCount}
         themeColor={themeColor}
       />
-
-      {showTour && (
-        <TourGuide 
-          onComplete={() => setShowTour(false)} 
-          themeColor={themeColor}
-          currentPage={currentPage}
-          onNavigate={(page) => {
-            if (page === "leaderboard") goToLeaderboard();
-            else goToProfile();
-          }}
-        />
-      )}
     </div>
   );
 }
