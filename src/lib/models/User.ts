@@ -3,8 +3,8 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 export interface IUser extends Document {
   name: string;
   email: string;
-  password: string;
-  instagramUsername: string;
+  password?: string;
+  instagramUsername?: string;
   clickCount: number;
   avatarUrl: string;
   themeColor: string;
@@ -17,8 +17,8 @@ export interface IUser extends Document {
 const UserSchema = new Schema<IUser>({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  instagramUsername: { type: String, required: true, unique: true },
+  password: { type: String },
+  instagramUsername: { type: String, default: "" },
   clickCount: { type: Number, default: 0 },
   avatarUrl: { type: String, default: "" },
   themeColor: { type: String, default: "#FFAA00" },

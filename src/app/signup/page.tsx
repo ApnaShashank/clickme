@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ThemedLoading from "@/components/ThemedLoading";
+import GoogleSignInButton from "@/components/GoogleSignInButton";
 
 const AVATARS = [
   "https://ik.imagekit.io/DEMOPROJECT/clickme/hoddie__boy.png?updatedAt=1774962424608",
@@ -232,6 +233,15 @@ export default function SignupPage() {
               </span>
             </button>
           </form>
+
+          {/* Social Auth Divider */}
+          <div className="flex items-center gap-4 my-8">
+            <div className="h-px flex-1 bg-white/5"></div>
+            <span className="text-[9px] font-black uppercase tracking-[0.4em] text-white/20 whitespace-nowrap">OPTIONAL_OAUTH</span>
+            <div className="h-px flex-1 bg-white/5"></div>
+          </div>
+
+          <GoogleSignInButton />
         </div>
 
         {/* Secondary Actions */}

@@ -296,6 +296,19 @@ function LeaderboardPage({
   );
 }
 
+const getStageName = (clicks: number) => {
+  if (clicks <= 10000) return "Daone";
+  if (clicks <= 20000) return "Datwo";
+  if (clicks <= 30000) return "Dathree";
+  if (clicks <= 40000) return "Dafour";
+  if (clicks <= 50000) return "Dafive";
+  if (clicks <= 60000) return "Dasix";
+  if (clicks <= 70000) return "Daseven";
+  if (clicks <= 80000) return "Daeight";
+  if (clicks <= 90000) return "Danine";
+  return "Dahund";
+};
+
 // ──────────────────────────────────────
 // PROFILE PAGE
 // ──────────────────────────────────────
@@ -474,7 +487,7 @@ function ProfilePage({
           <span className="block text-sm font-headline font-black text-white/50">
             <span className="material-symbols-outlined text-base align-middle" style={{ fontVariationSettings: "'FILL' 1", color: themeColor }}>bolt</span>
           </span>
-          <span className="text-[8px] font-black text-white/20 uppercase tracking-[0.2em] mt-0.5 block">Active</span>
+          <span className="text-[8px] font-black text-white/20 uppercase tracking-[0.2em] mt-0.5 block">{getStageName(profile.clickCount)}</span>
         </div>
       </div>
 
