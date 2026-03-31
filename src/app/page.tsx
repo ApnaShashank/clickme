@@ -570,8 +570,10 @@ export default function Home() {
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/login");
+    } else if (status === "authenticated" && session?.user?.email === "shashank8808108802@gmail.com") {
+      router.push("/admin");
     }
-  }, [status, router]);
+  }, [status, session, router]);
 
   // 2. Initial Data Fetching
   useEffect(() => {

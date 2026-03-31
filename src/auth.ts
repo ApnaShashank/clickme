@@ -42,9 +42,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   session: { strategy: "jwt" },
   callbacks: {
     async signIn({ user, account }) {
-      if (account?.provider === "google") {
-        try {
-          await connectToDatabase();
+      try {
+        await connectToDatabase();
+        
+        // Handle Google First-Time Onboarding
+        if (account?.provider === "google") {
           const existingUser = await User.findOne({ email: user.email });
           if (!existingUser) {
             await User.create({
@@ -52,12 +54,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               email: user.email || "",
               avatarUrl: user.image || "",
               instagramUsername: `user_${Math.floor(1000 + Math.random() * 9000)}`,
+              loginCount: 1,
+              lastLogin: new Date(),
             });
+            return true; // Bypass increment for first creation
           }
-        } catch (error) {
-          console.error("Google sync error:", error);
-          return false;
         }
+
+        // Handle Tracker Update for All Providers (Credentials & Google)
+        if (user.email) {
+          await User.findOneAndUpdate(
+            { email: user.email },
+            { 
+              $inc: { loginCount: 1 },
+              $set: { lastLogin: new Date() }
+            }
+          );
+        }
+      } catch (error) {
+        console.error("Auth sync error:", error);
+        return false;
       }
       return true;
     },

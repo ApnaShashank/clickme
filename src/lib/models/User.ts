@@ -11,6 +11,8 @@ export interface IUser extends Document {
   customLink: string;
   resetPasswordToken?: string;
   resetPasswordExpiry?: Date;
+  lastLogin?: Date;
+  loginCount?: number;
   createdAt: Date;
 }
 
@@ -25,6 +27,8 @@ const UserSchema = new Schema<IUser>({
   customLink: { type: String, default: "" },
   resetPasswordToken: { type: String },
   resetPasswordExpiry: { type: Date },
+  lastLogin: { type: Date },
+  loginCount: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now },
 });
 
