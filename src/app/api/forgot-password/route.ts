@@ -57,7 +57,10 @@ export async function POST(req: Request) {
     await user.save();
 
     // 6. MOCK EMAIL: Log the reset link to the console
-    const resetUrl = `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/reset-password/${resetToken}`;
+    const host = req.headers.get("host");
+    const protocol = host?.includes("localhost") ? "http" : "https";
+    const origin = process.env.NEXTAUTH_URL || `${protocol}://${host}`;
+    const resetUrl = `${origin}/reset-password/${resetToken}`;
     
     console.log("\n--- [SECURITY_LINK] ---");
     console.log(`FORGOT_PASSWORD_REQUEST: ${email}`);

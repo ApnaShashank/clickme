@@ -21,8 +21,6 @@ export const metadata: Metadata = {
   keywords: ["clicker game", "multiplayer", "leaderboard", "online game", "idle game"],
   authors: [{ name: "ClickMe Arena" }],
   creator: "ClickMe Team",
-  themeColor: "#0066FF",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
   alternates: {
     canonical: "https://clickmee.vercel.app",
   },
@@ -52,6 +50,13 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+};
+
+export const viewport = {
+  themeColor: "#0066FF",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({

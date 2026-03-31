@@ -358,125 +358,159 @@ function ProfilePage({
   };
 
   return (
-    <div className="flex flex-col items-center pt-8 pb-56 px-5 min-h-screen">
-      {/* Top Bar: Edit/Save + Instagram Username */}
-      <div className="w-full flex items-center justify-between mb-4">
+    <div className="flex flex-col items-center pt-8 pb-96 px-5 min-h-screen">
+      {/* Top Header: Edit [Edit Icon] [PROFILE] [Logout Icon] Logout */}
+      <header className="w-full flex items-center justify-between mb-12 relative">
         <button
           onClick={isEditing ? handleSave : handleEdit}
-          className="flex items-center gap-2 px-5 py-2 rounded-sm font-headline font-bold text-sm uppercase tracking-wider transition-all duration-300 active:scale-95"
-          style={isEditing ? { backgroundColor: themeColor, color: "#000" } : { backgroundColor: "rgba(255,255,255,0.08)", color: "#fff", border: "1px solid rgba(255,255,255,0.2)" }}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-sm font-headline font-black text-[10px] uppercase tracking-widest transition-all duration-300 active:scale-95 z-20"
+          style={isEditing ? { backgroundColor: themeColor, color: "#000" } : { backgroundColor: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.4)", border: "1px solid rgba(255,255,255,0.1)" }}
+          aria-label={isEditing ? "Save changes" : "Edit profile"}
         >
-          <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>
-            {isEditing ? "check" : "edit"}
+          <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>
+            {isEditing ? "check" : "edit_square"}
           </span>
-          {isEditing ? "Save" : "Edit"}
+          {isEditing ? "SAVE" : "EDIT"}
         </button>
-        <span className="text-white/50 font-bold text-sm">@{profile.instagramUsername}</span>
-      </div>
 
-      {/* Double Click Button (only in edit mode) */}
-      {isEditing && (
-        <button
-          onDoubleClick={handleDoubleClick}
-          className="mb-4 px-6 py-2 border-2 border-dashed font-headline font-bold text-sm uppercase tracking-wider rounded-sm transition-all hover:bg-white/5 active:scale-95"
-          style={{ borderColor: themeColor, color: themeColor }}
-        >
-          <span className="material-symbols-outlined text-base mr-1 align-middle" style={{ fontVariationSettings: "'FILL' 1" }}>ads_click</span>
-          Double Click
-        </button>
-      )}
-
-      {/* Link Input (shown after double-clicking the button) */}
-      {isEditing && showLinkInput && (
-        <div className="w-full max-w-sm mb-6">
-          <label className="block text-white/50 text-xs font-bold uppercase tracking-widest mb-2">Your Link</label>
-          <input
-            type="url"
-            value={customLink}
-            onChange={(e) => setCustomLink(e.target.value)}
-            className="w-full bg-white/5 border px-4 py-3 text-white font-semibold outline-none transition-colors placeholder:text-white/20"
-            style={{ borderColor: themeColor }}
-            placeholder="https://your-link.com"
-          />
+        <div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none">
+          <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20">IDENTITY</span>
+          <h2 className="text-white text-xs font-headline font-black tracking-[0.2em] -mt-1 uppercase">Profile</h2>
         </div>
-      )}
+
+        <button
+          onClick={() => signOut({ callbackUrl: "/login" })}
+          className="flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 text-white/30 text-[10px] font-black uppercase tracking-widest hover:text-red-500 hover:border-red-500/20 transition-all active:scale-95 z-20"
+          aria-label="Logout"
+        >
+          <span className="material-symbols-outlined text-sm">logout</span>
+          LOGOUT
+        </button>
+      </header>
+
+
+
 
       {/* Avatar Section */}
-      <div className="relative flex items-center justify-center gap-4 mb-8">
+      <div className="relative flex items-center justify-center gap-4 mb-6">
         {isEditing && (
-          <button onClick={prevAvatar} className="w-10 h-10 rounded-full bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white/20 transition-all active:scale-90">
+          <button onClick={prevAvatar} className="w-10 h-10 rounded-full bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white/20 transition-all active:scale-90" aria-label="Previous Avatar">
             <span className="material-symbols-outlined text-white text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>chevron_left</span>
           </button>
         )}
 
-        <div className="relative transition-all duration-500" style={isEditing ? { filter: `drop-shadow(0 0 15px ${themeColor}50)` } : {}}>
-          <div className="w-56 h-72 relative">
-            <Image src={currentAvatar} alt="Your Avatar" fill className="object-contain transition-all duration-500 drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]" priority />
+        <div 
+          onDoubleClick={isEditing ? handleDoubleClick : undefined}
+          className={`relative transition-all duration-500 ${isEditing ? 'cursor-pointer group/avatar' : ''}`} 
+          style={isEditing ? { filter: `drop-shadow(0 0 20px ${themeColor}30)` } : {}}
+        >
+          <div className="w-48 h-64 relative">
+            <Image 
+              src={currentAvatar} 
+              alt="Your current avatar identity" 
+              fill 
+              sizes="192px"
+              className="object-contain transition-all duration-500 drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]" 
+              priority 
+            />
           </div>
+          {isEditing && (
+            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap bg-black/80 border border-white/10 px-3 py-1 rounded-sm text-[8px] font-black uppercase tracking-widest text-[#0066FF] animate-pulse pointer-events-none group-hover/avatar:opacity-0 transition-opacity">
+              Double-tap to add link
+            </div>
+          )}
         </div>
 
         {isEditing && (
-          <button onClick={nextAvatar} className="w-10 h-10 rounded-full bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white/20 transition-all active:scale-90">
+          <button onClick={nextAvatar} className="w-10 h-10 rounded-full bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white/20 transition-all active:scale-90" aria-label="Next Avatar">
             <span className="material-symbols-outlined text-white text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>chevron_right</span>
           </button>
         )}
       </div>
 
-      {/* Username */}
-      <div className="text-center mb-6">
+      {/* Username / Identity Hierarchy */}
+      <div className="text-center mb-6 space-y-1">
         {isEditing ? (
-          <input
-            ref={nameInputRef}
-            type="text"
-            value={editName}
-            onChange={(e) => setEditName(e.target.value)}
-            className="bg-transparent border-b-2 text-white text-3xl font-headline font-black tracking-widest text-center outline-none pb-1 w-64"
-            style={{ borderColor: themeColor, caretColor: themeColor }}
-            maxLength={20}
-          />
+          <div className="space-y-3">
+             <input
+              ref={nameInputRef}
+              type="text"
+              value={editName}
+              onChange={(e) => setEditName(e.target.value)}
+              className="bg-transparent border-b-2 text-white text-4xl font-headline font-black tracking-[0.1em] text-center outline-none pb-1 w-full max-w-xs transition-all focus:border-primary"
+              style={{ borderColor: themeColor, caretColor: themeColor }}
+              placeholder="DISPLAY_NAME"
+              maxLength={20}
+              id="profile-name-edit"
+              aria-label="Edit display name"
+            />
+            <div className="flex items-center justify-center gap-1.5 text-white/30 font-black text-xs uppercase tracking-[0.2em] opacity-80">
+              <span className="material-symbols-outlined text-sm">alternate_email</span>
+              {profile.instagramUsername}
+            </div>
+          </div>
         ) : (
-          <h1 className="text-white text-3xl font-headline font-black tracking-widest">{profile.name}</h1>
+          <>
+            <h1 className="text-white text-4xl font-headline font-black tracking-[0.05em] uppercase">{profile.name}</h1>
+            <div className="flex items-center justify-center gap-1.5 text-white/30 font-black text-xs uppercase tracking-[0.4em] mt-1 pt-1 border-t border-white/5 inline-flex px-4 mx-auto leading-none">
+              <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
+              {profile.instagramUsername}
+            </div>
+          </>
         )}
       </div>
 
-      {/* Custom Link Display (when not editing) */}
-      {!isEditing && profile.customLink && (
+      {/* Stats - Grouped tightly above the footer area */}
+      <div className="w-full max-w-xs grid grid-cols-3 gap-2 mt-0 mb-8 relative z-20">
+        <div className="bg-white/5 border border-white/10 p-2 text-center rounded-sm">
+          <span className="block text-sm font-headline font-black tracking-tight text-white">{formatClicks(profile.clickCount)}</span>
+          <span className="text-[8px] font-black text-white/20 uppercase tracking-[0.2em] mt-0.5 block">Clicks</span>
+        </div>
+        <div className="bg-[#0066FF10] border border-[#0066FF30] p-2 text-center rounded-sm">
+          <span className="block text-sm font-headline font-black text-[#0066FF] tracking-tight">#{profile.rank}</span>
+          <span className="text-[8px] font-black text-[#0066FF] uppercase tracking-[0.2em] mt-0.5 block opacity-50">Rank</span>
+        </div>
+        <div className="bg-white/5 border border-white/10 p-2 text-center rounded-sm">
+          <span className="block text-sm font-headline font-black text-white/50">
+            <span className="material-symbols-outlined text-base align-middle" style={{ fontVariationSettings: "'FILL' 1", color: themeColor }}>bolt</span>
+          </span>
+          <span className="text-[8px] font-black text-white/20 uppercase tracking-[0.2em] mt-0.5 block">Active</span>
+        </div>
+      </div>
+
+      {/* Custom Link Display / Editor (shown after double-clicking the avatar) */}
+      {isEditing && showLinkInput ? (
+        <div className="w-full max-w-sm mb-10 animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <label htmlFor="custom-link-edit" className="block text-white/30 text-[9px] font-black uppercase tracking-[0.3em] mb-2 px-1">Global Target Link</label>
+          <div className="relative group">
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-[#0066FF] transition-colors" aria-hidden="true">
+              <span className="material-symbols-outlined text-sm">link</span>
+            </div>
+            <input
+              id="custom-link-edit"
+              type="url"
+              value={customLink}
+              onChange={(e) => setCustomLink(e.target.value)}
+              className="w-full bg-[#0d0d0d] border border-white/10 px-11 py-4 text-white font-bold outline-none focus:border-[#0066FF] transition-all placeholder:text-white/5 text-xs"
+              placeholder="HTTPS://YOUR-CUSTOM-URL.COM"
+            />
+          </div>
+        </div>
+      ) : !isEditing && profile.customLink && (
         <a
           href={profile.customLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 mb-6 px-5 py-2 bg-white/5 border border-white/10 text-white/70 text-sm font-bold hover:bg-white/10 transition-colors"
+          className="flex items-center gap-3 mb-10 px-8 py-3 bg-white/5 border border-white/10 text-white font-black text-[10px] uppercase tracking-[0.34em] hover:bg-white/10 hover:border-[#0066FF] transition-all active:scale-[0.98] group"
         >
-          <span className="material-symbols-outlined text-base" style={{ color: themeColor, fontVariationSettings: "'FILL' 1" }}>link</span>
-          My Link
+          <span className="material-symbols-outlined text-base group-hover:scale-110 transition-transform" style={{ color: themeColor, fontVariationSettings: "'FILL' 1" }}>link</span>
+          Launch Profile
         </a>
       )}
 
-      {/* Stats */}
-      <div className="w-full max-w-sm grid grid-cols-3 gap-3 mt-auto mb-10 relative z-20">
-        <div className="bg-surface-container-low border-t-2 p-4 text-center" style={{ borderTopColor: themeColor }}>
-          <span className="block text-xl font-headline font-black" style={{ color: themeColor }}>{formatClicks(profile.clickCount)}</span>
-          <span className="text-[10px] font-bold text-white/50 uppercase tracking-widest mt-1 block">Clicks</span>
-        </div>
-        <div className="bg-surface-container-low border-t-2 border-white/20 p-4 text-center">
-          <span className="block text-xl font-headline font-black text-white">#{profile.rank}</span>
-          <span className="text-[10px] font-bold text-white/50 uppercase tracking-widest mt-1 block">Rank</span>
-        </div>
-        <div className="bg-surface-container-low border-t-2 border-white/20 p-4 text-center">
-          <span className="block text-xl font-headline font-black text-white/60">
-            <span className="material-symbols-outlined text-xl align-middle" style={{ fontVariationSettings: "'FILL' 1", color: themeColor }}>bolt</span>
-          </span>
-          <span className="text-[10px] font-bold text-white/50 uppercase tracking-widest mt-1 block">Active</span>
-        </div>
-      </div>
 
-      {/* Logout */}
-      <button
-        onClick={() => signOut({ callbackUrl: "/login" })}
-        className="text-white/30 text-xs font-bold uppercase tracking-widest hover:text-red-400 transition-colors mb-4"
-      >
-        Logout
-      </button>
+
+
     </div>
   );
 }
