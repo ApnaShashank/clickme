@@ -15,26 +15,26 @@ const rajdhani = Rajdhani({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://clickmee.vercel.app"),
-  title: "ClickMe - The Ultimate Multiplayer Clicker Game",
-  description: "Click your way to the top of the leaderboard! Join the arena, customize your identity, and dominate the rankings in the most professional clicker game online.",
-  keywords: ["clicker game", "multiplayer", "leaderboard", "online game", "idle game"],
+  metadataBase: new URL("https://clickmeee.vercel.app"),
+  title: "Click Me | The Viral Ad Arena 🚀",
+  description: "Rank high, go viral! Join the global click race, connect via social handles, and use your rank to promote products globally through double-click advertisement interactions. The ultimate social clicker arena.",
+  keywords: ["clicker game", "viral clicker", "social ads", "multiplayer leaderboard", "product promotion", "instagram arena", "click me to viral"],
   authors: [{ name: "ClickMe Arena" }],
   creator: "ClickMe Team",
   alternates: {
-    canonical: "https://clickmee.vercel.app",
+    canonical: "https://clickmeee.vercel.app",
   },
   openGraph: {
-    title: "ClickMe - The Ultimate Multiplayer Clicker Game",
-    description: "Compete with players worldwide! Click your way to #1.",
-    url: "https://clickmee.vercel.app",
-    siteName: "ClickMe",
+    title: "Click Me | The Viral Ad Arena 🚀",
+    description: "Rise to the top of the leaderboard and promote your brand! Connect with players worldwide.",
+    url: "https://clickmeee.vercel.app",
+    siteName: "Click Me",
     images: [
       {
         url: "https://ik.imagekit.io/DEMOPROJECT/clickme/og-image.png?updatedAt=1774962271934",
         width: 1200,
         height: 630,
-        alt: "ClickMe Leaderboard Arena",
+        alt: "Click Me Viral Arena",
       },
     ],
     locale: "en_US",
@@ -42,8 +42,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ClickMe - The Ultimate Multiplayer Clicker Game",
-    description: "Click your way to the top of the leaderboard! Join the arena and dominate.",
+    title: "Click Me | The Viral Ad Arena 🚀",
+    description: "Rank top. Connect with players. Advertise your products globally.",
     images: ["https://ik.imagekit.io/DEMOPROJECT/clickme/og-image.png?updatedAt=1774962271934"],
   },
   robots: {
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#0066FF",
+  themeColor: "#0a0a0a",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
